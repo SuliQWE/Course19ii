@@ -1,18 +1,10 @@
-from .models import (Country , City , Category ,SubCategory , Course,
+from .models import (Category ,SubCategory , Course,
                      Exam , Question, Option ,Review, Lesson , Assignment)
 from modeltranslation.translator import TranslationOptions,register
 
 @register(Review)
 class ReviewTranslationOptions(TranslationOptions):
     fields = ('comment',)
-
-@register(Country)
-class CountryTranslationOptions(TranslationOptions):
-    fields = ('country_name',)
-
-@register(City)
-class CityTranslationOptions(TranslationOptions):
-    fields = ('city_name',)
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
