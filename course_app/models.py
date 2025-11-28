@@ -5,8 +5,6 @@ from django.db.models.fields import BooleanField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-
-
 class UserProfile(AbstractUser):
     age = models.PositiveIntegerField(validators=[MinValueValidator(18), MaxValueValidator(80)], null=True, blank=True)
     phone = PhoneNumberField()
@@ -21,22 +19,26 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return f'{self.first_name},{self.last_name}'
 
+
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.category_name
 
+
 class SubCategory(models.Model):
     sub_category_name = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+
     def __str__(self):
         return self.sub_category_name
+
 
 class Course(models.Model):
     course_name = models.CharField(max_length=50)
     description = models.TextField()
-    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='courses')
     LevelChoices = (
         ('easy','easy'),
         ('medium','medium'),
@@ -56,7 +58,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=50)
     video = models.URLField()
     content = models.FileField(upload_to='lesson_video/', null=True, blank=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
 
     def __str__(self):
         return self.title

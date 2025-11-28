@@ -31,7 +31,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'course_app',
     "phonenumber_field",
-
+    'rest_framework_swagger',
+    'drf_yasg',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
