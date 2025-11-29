@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5a1bc7-5984-4fa5-96bc-0e6cd4223938" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/course_app/permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/migrations/0002_alter_assignment_student_alter_certificate_student_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/migrations/0003_remove_assignment_lesson_city_country.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/migrations/0004_remove_userprofile_city_remove_userprofile_country_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/translation.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/translation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/urls.py" afterDir="false" />
-    </list>
+    <list default="true" id="ba5a1bc7-5984-4fa5-96bc-0e6cd4223938" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
