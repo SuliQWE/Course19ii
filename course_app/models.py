@@ -79,17 +79,26 @@ class Exam(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     duration = models.DurationField()
 
+    def str(self):
+        return self.title
+
 
 
 class Question(models.Model):
     question_name = models.CharField(max_length=50)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='questions')
     score = models.PositiveIntegerField()
 
+    def __str__(self):
+        return self.question_name
+
 class Option(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='options')
     option_name = models.CharField(max_length=50)
     option_type = BooleanField()
+
+    def __str__(self):
+        return self.option_name
 
 
 class Certificate(models.Model):
@@ -97,6 +106,15 @@ class Certificate(models.Model):
     student = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'user_role': 'student'})
     issued_date = models.DateField()
     certificate_url = models.FileField(upload_to='certificate_url/', null=True, blank=True)
+    def __str__(self):
+        return f'{self.course.course_name},{self.student.first_name},{self.student.last_name}'
+
+
+
+class Subscribe(models.Model):
+    student = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'user_role': 'student'})
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    subscribe_at = models.DateTimeField(auto_now_add=True)
 
 
 class Review(models.Model):
@@ -105,3 +123,5 @@ class Review(models.Model):
     rating = models.PositiveSmallIntegerField(choices=[(i, str(i))for i in range(1, 6)])
     comment = models.TextField()
 
+    def __str__(self):
+        return f'{self.course.course_name},{self.student.first_name},{self.student.last_name}'

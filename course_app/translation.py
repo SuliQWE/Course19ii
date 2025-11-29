@@ -1,5 +1,5 @@
-from .models import (Category ,SubCategory , Course,
-                     Exam , Question, Option ,Review, Lesson , Assignment)
+from .models import (Category, SubCategory, Course,
+                     Exam, Question, Option, Review, Lesson, Assignment,)
 from modeltranslation.translator import TranslationOptions,register
 
 @register(Review)

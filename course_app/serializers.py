@@ -1,7 +1,41 @@
 from rest_framework import serializers
-from .models import (UserProfile, Category ,SubCategory , Course,
-                     Exam , Question, Option ,Certificate ,Review, Lesson , Assignment)
+from .models import (UserProfile, Category, SubCategory, Course,
+                     Exam, Question, Option, Certificate, Review, Lesson, Assignment, Subscribe)
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'age',
+                  'phone', 'user_role']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = UserProfile.objects.create_user(**validated_data)
+        return user
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Неверные учетные данные")
+
+    def to_representation(self, instance):
+        refresh = RefreshToken.for_user(instance)
+        return {
+            'user': {
+                'username': instance.username,
+                'email': instance.email,
+            },
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+        }
 
 class UserProfileListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,22 +112,45 @@ class CourseDetailSerializer(serializers.ModelSerializer):
         fields = ['course_name', 'sub_category', 'level', 'price',
                   'created_by', 'description', 'create_date', 'update_date', 'lessons']
 
-
-class ExamSerializer(serializers.ModelSerializer):
+class CourseCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Exam
-        fields = '__all__'
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
+        model = Course
         fields = '__all__'
 
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Option
+        fields = ['id', 'option_name', 'option_type']
+
+class QuestionSerializer(serializers.ModelSerializer):
+    options = OptionSerializer(many=True, read_only=True)
+    class Meta:
+        model = Question
+        fields = ['id', 'question_name', 'score', 'options']
+
+
+class OptionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
         fields = '__all__'
+
+class QuestionCreateSerializer(serializers.ModelSerializer):
+    options = OptionSerializer(many=True, read_only=True)
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class ExamListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exam
+        fields = ['id', 'title', 'duration']
+
+class ExamDetailSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(many=True, read_only=True)
+    class Meta:
+        model = Exam
+        fields = ['id', 'title', 'duration','questions']
+
 
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -103,6 +160,16 @@ class AssignmentSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
+        fields = '__all__'
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+class SubscribeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscribe
         fields = '__all__'
 
 class CertificateSerializer(serializers.ModelSerializer):

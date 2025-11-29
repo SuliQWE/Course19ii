@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import (UserProfile, Category ,SubCategory , Course,
-                     Exam , Question, Option ,Certificate ,Review, Lesson , Assignment)
-from modeltranslation.admin import TranslationAdmin
+from .models import (UserProfile, Category, SubCategory, Course,
+                     Exam, Question, Option, Certificate, Review, Lesson, Assignment)
+from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin
 
 
 
 
-class SubCategoryInline(admin.TabularInline):
+class SubCategoryInline(admin.TabularInline,TranslationInlineModelAdmin):
     model = SubCategory
     extra = 1
 
-class QuestionInline(admin.TabularInline):
+class QuestionInline(admin.TabularInline,TranslationInlineModelAdmin):
     model = Question
     extra = 1
 
@@ -119,6 +119,7 @@ class ReviewAdmin(TranslationAdmin):
             'modeltranslation/js/tabbed_translation_fields.js',
         )
         css = {'screen': ('modeltranslation/css/tabbed_translation_fields.css',)}
+
 
 
 admin.site.register(UserProfile)
